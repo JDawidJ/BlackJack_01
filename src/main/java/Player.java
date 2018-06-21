@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
-public class Player {private String name;
+public class Player {
+
+    private String name;
     private ArrayList<Card> hand;
 
     public Player (String playerName) {
@@ -42,30 +44,35 @@ public class Player {private String name;
         return sumOfPoints;
     }
 
-    public void printHand(boolean showFirstHand) {
-
-        System.out.print(name + ":");
-        System.out.println(getHandText(showFirstHand));
-
-        if (showFirstHand) {
-            System.out.println("Punkty: [" + getHandSum() + "] \n");
-        } else {
-            System.out.println("Punkty: [?] \n");
-        }
-    }
-
-    public String getHandText (boolean showFirstHand) {
+    public String getCardsText(boolean showFirstHand) {
 
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < hand.size(); i++) {
 
             if (i == 0 && !showFirstHand) {
-                sb.append("\n[Ukryta]");
+                sb.append("<br>[Ukryta]");
             } else {
-                sb.append("\n" + hand.get(i).toString());
+                sb.append("<br>" + hand.get(i).toString());
             }
         }
+        return sb.toString();
+    }
+
+    public String getCardsOnHand(boolean showFirstHand) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append(name + ":<br>");
+        sb.append(getCardsText(showFirstHand) + "<br>");
+
+        if (showFirstHand) {
+            sb.append("Punkty: [" + getHandSum() + "] <br>");
+        } else {
+            sb.append("Punkty: [?] <br>");
+        }
+
+        sb.append("</html>");
         return sb.toString();
     }
 
